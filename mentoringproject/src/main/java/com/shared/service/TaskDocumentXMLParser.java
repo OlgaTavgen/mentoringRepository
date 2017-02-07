@@ -40,11 +40,16 @@ public class TaskDocumentXMLParser implements DocumentInterface {
 				backlogElement.appendChild(taskElement);
 			
 				Task task = Task.builder()
+						.type(taskEnum.getType())
 						.description(taskEnum.getDescription())
 						.estimate(taskEnum.getEstimate())
 						.priority(taskEnum.getPriority())
 						.severity(taskEnum.getSeverity())
 						.build();
+				
+				final Element typeElement = document.createElement("type");
+				typeElement.appendChild(document.createTextNode(task.getType()));
+				taskElement.appendChild(typeElement);
 											
 				final Element descriptionElement = document.createElement("description");
 				descriptionElement.appendChild(document.createTextNode(task.getDescription()));

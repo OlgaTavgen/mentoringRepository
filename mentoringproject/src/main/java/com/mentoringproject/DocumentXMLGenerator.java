@@ -3,7 +3,7 @@ package com.mentoringproject;
 import com.shared.service.DeveloperDocumentXMLParser;
 import com.shared.service.TaskDocumentXMLParser;
 
-public class DocumentXMLRunner {
+public class DocumentXMLGenerator {
 	
 	public static void main(String args[])
 	{
