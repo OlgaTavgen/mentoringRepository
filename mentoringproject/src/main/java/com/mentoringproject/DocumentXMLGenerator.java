@@ -10,5 +10,4 @@ public class DocumentXMLGenerator {
 		new DeveloperDocumentXMLParser().buildDocument();
 		new TaskDocumentXMLParser().buildDocument();
 	}
-
 }
