@@ -16,6 +16,9 @@ import com.mentoringproject.hogwarts.model.HogwartsTask;
 public class HogwartsTaskDTO
 {
 	@JsonProperty
+	private String id;
+	
+	@JsonProperty
 	private String type;
 	
 	@JsonProperty
@@ -32,6 +35,7 @@ public class HogwartsTaskDTO
 	
 	public HogwartsTaskDTO(final HogwartsTask task)
 	{
+		this.id = task.getId();
 		this.type = task.getType();
 		this.description = task.getDescription();
 		this.estimate = task.getEstimate();
