@@ -1,15 +1,10 @@
 package com.mentoringproject.hogwarts.web;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-import com.google.common.collect.Lists;
-import com.mentoringproject.hogwarts.service.HogwartsDeveloper;
-import com.mentoringproject.hogwarts.service.HogwartsResultsResponse;
-import com.mentoringproject.hogwarts.service.HogwartsTask;
+import com.mentoringproject.hogwarts.model.HogwartsResultsResponse;
 
 @JsonAutoDetect(
 		creatorVisibility = Visibility.NONE,
@@ -24,10 +19,10 @@ public class HogwartsResultsResponseDTO {
 	private String team;
 	
 	@JsonProperty
-	private List<HogwartsDeveloperDTO> developers = Lists.newArrayList();
+	private HogwartsDeveloperItemDTO developers;
 	
 	@JsonProperty
-	private List<HogwartsTaskDTO> tasks = Lists.newArrayList();
+	private HogwartsTaskItemDTO tasks;
 	
 	public HogwartsResultsResponseDTO(final String team)
 	{
@@ -36,28 +31,9 @@ public class HogwartsResultsResponseDTO {
 	
 	public HogwartsResultsResponseDTO(final HogwartsResultsResponse results)
 	{
-		final List<HogwartsDeveloperDTO> devDTOs = Lists.newArrayList();
-		final List<HogwartsTaskDTO> taskDTOs = Lists.newArrayList();
-		
 		team = results.getTeam();
-		
-		for (final HogwartsDeveloper  developer : results.getDevelopers())
-		{			
-			final HogwartsDeveloperDTO developerDTO = new HogwartsDeveloperDTO(developer);
-			
-			devDTOs.add(developerDTO);			
-		}
-		
-		developers = devDTOs;
-		
-		for (final HogwartsTask task: results.getTasks())
-		{			
-			final HogwartsTaskDTO taskDTO = new HogwartsTaskDTO(task);
-			
-			taskDTOs.add(taskDTO);			
-		}
-		
-		tasks = taskDTOs;		
+		developers = new HogwartsDeveloperItemDTO(results.getDeveloperItem());
+		tasks = new HogwartsTaskItemDTO(results.getTaskItem());
 	}
 
 	public String getTeam()
@@ -65,12 +41,12 @@ public class HogwartsResultsResponseDTO {
 		return team;
 	}
 
-	public List<HogwartsDeveloperDTO> getDevelopers()
+	public HogwartsDeveloperItemDTO getDevelopers()
 	{
 		return developers;
 	}
 
-	public List<HogwartsTaskDTO> getTasks() 
+	public HogwartsTaskItemDTO getTasks() 
 	{
 		return tasks;
 	}

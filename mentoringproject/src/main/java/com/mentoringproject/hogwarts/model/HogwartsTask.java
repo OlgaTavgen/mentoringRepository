@@ -1,4 +1,4 @@
-package com.mentoringproject.hogwarts.service;
+package com.mentoringproject.hogwarts.model;
 
 import org.apache.commons.lang.StringUtils;
 
