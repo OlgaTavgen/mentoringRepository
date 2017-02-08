@@ -20,6 +20,17 @@
 		</property>
 	</bean>
 		
-	<context:component-scan base-package="com.mentoringproject.hogwarts" />	
+	<context:component-scan base-package="com.mentoringproject">
+<!-- 	    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" /> -->
+	</context:component-scan>	
+	
+<!-- 	<bean id="hogwartsService" class="com.mentoringproject.hogwarts.service.HogwartsService" /> -->
+	
+<!-- 	<bean id="hogwartsController" class="com.mentoringproject.hogwarts.web.HogwartsController">
+	     <property name="hogwartsService" ref="hogwartsService" />
+	</bean> -->
+	
+	<bean id="hogwartsController" class="com.mentoringproject.hogwarts.web.HogwartsController" />
+	
 
 </beans>
