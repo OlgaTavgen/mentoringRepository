@@ -24,8 +24,8 @@ import com.shared.model.XMLTagsLocators;
 @Component
 public class HogwartsEntryFactory
 {	
-	private final static String DEVELOPERS_XML_PATH = "src/main/resources/xml/developer.xml";
-	private final static String TASKS_XML_PATH = "src/main/resources/xml/task.xml";
+	private final static String DEVELOPERS_XML_PATH = "D:/REPOSITORIES/mentoringRepository/mentoringproject/src/main/resources/xml/developer.xml";
+	private final static String TASKS_XML_PATH = "D:/REPOSITORIES/mentoringRepository/mentoringproject/src/main/resources/xml/task.xml";
 	
 	public List<HogwartsDeveloper> createDevelopersFromXML(final HogwartsResultsResponse response)
 	{
@@ -38,8 +38,6 @@ public class HogwartsEntryFactory
 
 			Document doc = docBuilder.parse(new File(DEVELOPERS_XML_PATH));
 		
-			doc.getDocumentElement().normalize();
-		
 			NodeList teamsList = doc.getElementsByTagName(XMLTagsLocators.TEAM);
 		
 			for(int teamCount=0; teamCount<teamsList.getLength(); teamCount++)
@@ -49,23 +47,29 @@ public class HogwartsEntryFactory
 			
 				if(teamElement.getAttribute(XMLTagsLocators.TEAM_NAME_ATTR).equals(response.getTeam()))
 				{
-					final NodeList developersList = doc.getElementsByTagName(XMLTagsLocators.DEVELOPER);
+					final NodeList developersList = teamElement.getElementsByTagName(XMLTagsLocators.DEVELOPER);
 				
 					for(int devCount=0; devCount<developersList.getLength(); devCount++)
 					{
 						Node developerNode = developersList.item(devCount);					
 						Element developerElement = (Element)developerNode;
-					
-						final String firstName = developerElement.getElementsByTagName(XMLTagsLocators.DEVELOPER_FIRSTNAME).toString();	
-						final String lastName = developerElement.getElementsByTagName(XMLTagsLocators.DEVELOPER_LASTNAME).toString();	
-						final String nickname = developerElement.getElementsByTagName(XMLTagsLocators.DEVELOPER_NICKNAME).toString();	
-						final String primarySkill = developerElement.getElementsByTagName(XMLTagsLocators.DEVELOPER_PRIMARYSKILL).toString();	
-					
+
 						final HogwartsDeveloper  developer = new HogwartsDeveloper();
 					
+						final Element firstNameElement = (Element) developerElement.getElementsByTagName(XMLTagsLocators.DEVELOPER_FIRSTNAME).item(0);
+						final String firstName = firstNameElement.getFirstChild().getNodeValue();
 						developer.setFirstName(firstName);
+						
+						final Element lastNameElement = (Element) developerElement.getElementsByTagName(XMLTagsLocators.DEVELOPER_LASTNAME).item(0);
+						final String lastName = lastNameElement.getFirstChild().getNodeValue();
 						developer.setLastName(lastName);
+						
+						final Element nicknameElement = (Element) developerElement.getElementsByTagName(XMLTagsLocators.DEVELOPER_NICKNAME).item(0);
+						final String nickname = nicknameElement.getFirstChild().getNodeValue();
 						developer.setNickname(nickname);
+						
+						final Element primarySkillElement = (Element) developerElement.getElementsByTagName(XMLTagsLocators.DEVELOPER_PRIMARYSKILL).item(0);
+						final String primarySkill = primarySkillElement.getFirstChild().getNodeValue();
 						developer.setPrimarySkill(primarySkill);
 					
 						developers.add(developer);
@@ -106,29 +110,36 @@ public class HogwartsEntryFactory
 
 			Document doc = docBuilder.parse(new File(TASKS_XML_PATH));
 		
-			doc.getDocumentElement().normalize();
-		
 			NodeList tasksList = doc.getElementsByTagName(XMLTagsLocators.TASK);
 		
 			for(int taskCount=0; taskCount<tasksList.getLength(); taskCount++)
 			{
 				Node taskNode = tasksList.item(taskCount);
 				Element taskElement = (Element) taskNode;
-			
-				final String id = taskElement.getAttribute(XMLTagsLocators.TASK_ID_ATTR).toString();
-				final String type = taskElement.getElementsByTagName(XMLTagsLocators.TASK_TYPE).toString();	
-				final String description = taskElement.getElementsByTagName(XMLTagsLocators.TASK_DESCRIPTION).toString();	
-				final String estimate = taskElement.getElementsByTagName(XMLTagsLocators.TASK_ESTIMATE).toString();	
-				final String priority = taskElement.getElementsByTagName(XMLTagsLocators.TASK_PRIORITY).toString();
-				final String severity = taskElement.getElementsByTagName(XMLTagsLocators.TASK_SEVERITY).toString();	
-					
+				
 				final HogwartsTask task = new HogwartsTask();
-					
+				
+				final String id = taskElement.getAttribute(XMLTagsLocators.TASK_ID_ATTR).toString();
 				task.setId(id);
+				
+				final Element typeElement = (Element) taskElement.getElementsByTagName(XMLTagsLocators.TASK_TYPE).item(0);
+				final String type = typeElement.getFirstChild().getNodeValue();
 				task.setType(type);
+				
+				final Element descriptionElement = (Element) taskElement.getElementsByTagName(XMLTagsLocators.TASK_DESCRIPTION).item(0);
+				final String description = descriptionElement.getFirstChild().getNodeValue();
 				task.setDescription(description);
+				
+				final Element estimateElement = (Element) taskElement.getElementsByTagName(XMLTagsLocators.TASK_ESTIMATE).item(0);
+				final String estimate = estimateElement.getFirstChild().getNodeValue();
 				task.setEstimate(estimate);
+				
+				final Element priorityElement = (Element) taskElement.getElementsByTagName(XMLTagsLocators.TASK_PRIORITY).item(0);
+				final String priority = priorityElement.getFirstChild().getNodeValue();
 				task.setPriority(priority);
+				
+				final Element severityElement = (Element) taskElement.getElementsByTagName(XMLTagsLocators.TASK_SEVERITY).item(0);
+				final String severity = severityElement.getFirstChild().getNodeValue();
 				task.setSeverity(severity);
 					
 				tasks.add(task);					

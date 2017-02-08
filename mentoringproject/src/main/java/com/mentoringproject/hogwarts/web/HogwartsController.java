@@ -15,38 +15,35 @@ import com.mentoringproject.hogwarts.service.HogwartsEntryFactory;
 import com.mentoringproject.hogwarts.service.HogwartsService;
 import com.mentoringproject.hogwarts.service.HogwartsService.HogwartsRequest;
 
-//@Component
+@Controller
 @RequestMapping("/hogwarts")
 public class HogwartsController 
 {	
 	@Autowired
 	@Qualifier("hogwartsService")
 	public HogwartsService hogwartsService;
-	
-	public HogwartsController(){
-	}
-	
-	public HogwartsService getHogwartsService() {
-		return hogwartsService;
-	}
 
-	public void setHogwartsService(HogwartsService hogwartsService) {
-		this.hogwartsService = hogwartsService;
-	}
-
+//	@RequestMapping(value = "/home", method = RequestMethod.GET)
+//	public ModelAndView hogwartsWelcome()
+//	{
+//		ModelAndView model = new ModelAndView("home");
+//		model.addObject("msg", "Welcome Hogwarts!");
+//		
+//		return model;
+//	}
+	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public ModelAndView hogwartsWelcome()
-	{
-		ModelAndView model = new ModelAndView("home");
-		model.addObject("msg", "Welcome Hogwarts!");
-		
-		return model;
+	public String hogwartsHomePage()
+	{		
+		return "home";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
-	public HogwartsResultsResponseDTO retrieveResults(@RequestParam(required = true) final String team)
+//	public HogwartsResultsResponseDTO retrieveResults(@RequestParam(required = true) final String team)
+	public HogwartsResultsResponseDTO retrieveResults()
 	{
+		final String team = "Slytherin";
 		final HogwartsRequest request = hogwartsService.forTeam(team);
 		final HogwartsResultsResponse response = request.retrieveResults();
 		
